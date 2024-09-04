@@ -4,6 +4,8 @@ let board = [
     ['', '', '']
 ];
 
+let currentPlayer = 'x'
+
 function displayBoard() {
     console.clear();
     board.forEach(row => {
@@ -11,8 +13,6 @@ function displayBoard() {
     });
     console.log('\n');
 }
-
-let currentPlayer = 'x'
 
 function playerMove() {
     let row, col;
@@ -24,6 +24,7 @@ function playerMove() {
         if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
             if (board[row][col] === '') {
                 board[row][col] = currentPlayer;
+                displayBoard();
                 break;
             } else {
                 console.log('No space there, try another.')
@@ -35,5 +36,16 @@ function playerMove() {
     displayBoard()
 }
 
+function switchPlayer() {
+    currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
+}
+
+function gameLoop() {
+    for (let i = 0; i < 9; i++) {
+        playerMove();
+        switchPlayer();
+    }
+}
+
 displayBoard();
-playerMove();
+gameLoop();
