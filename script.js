@@ -70,6 +70,14 @@ function checkDraw() {
     return true;
 }
 
+function resetBoard() {
+    board = [
+        ['','',''],
+        ['','','']
+    ];
+    currentPlayer = 'x';
+}
+
 function gameLoop() {
     for (let i = 0; i < 9; i++) {
         playerMove();
@@ -84,6 +92,16 @@ function gameLoop() {
             return;
         }
         switchPlayer();
+    }
+
+    let playAgain = prompt('Rematch? (yes/no):').toLowerCase();
+
+    if (playAgain === 'yes') {
+        resetBoard();
+        displayBoard();
+    } else {
+        console.log('Thanks For PLaying');
+        break;
     }
 }
 
