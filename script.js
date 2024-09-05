@@ -33,7 +33,6 @@ function playerMove() {
             console.log('Invalid input, please enter a number between 0 and 2.') 
          }
     }
-    displayBoard()
 }
 
 function switchPlayer() {
