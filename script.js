@@ -70,6 +70,7 @@ function checkDraw() {
 function resetBoard() {
     board = [
         ['','',''],
+        ['','',''],
         ['','','']
     ];
     currentPlayer = 'x';
