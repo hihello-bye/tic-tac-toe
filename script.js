@@ -5,33 +5,37 @@ let board = [
 ];
 
 let currentPlayer = 'x'
+const cells = document.querySelectorAll('.cell');
 
 function displayBoard() {
-    console.clear();
-    board.forEach(row => {
-        console.log(row.join(' | '));
-    });
-    console.log('\n');
+    cells.forEach(cell => {
+        const row = cell.getAttribute('data-row');
+        const col = cell.getAttribute('data-col');
+        cell.textContent = board[row][col];
+    })
 }
 
-function playerMove() {
-    let row, col;
+function cellClick() {
+    const row = event.target.getAttribute('data-row');
+    const col = event.target.getAttribute('data-col');
 
-    while(true) {
-        row = parseInt(prompt(`Player ${currentPlayer}, enter row (0, 1, or 2):`), 10);
-        col = parseInt(prompt(`Player ${currentPlayer}, enter column (0, 1, or 2):`), 10);
+    if (board[row][col] === '') {
+        board[row][col] = currentPlayer;
+        displayBoard();
 
-        if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
-            if (board[row][col] === '') {
-                board[row][col] = currentPlayer;
-                displayBoard();
-                break;
-            } else {
-                console.log('No space there, try another.')
-            } 
-        } else {
-            console.log('Invalid input, please enter a number between 0 and 2.') 
-         }
+        if (checkWin()) {
+            setTimeout(() => alert(`Player ${currentPlayer} wins!`), 10);
+            return;
+        }
+
+        if (checkDraw()) {
+            setTimeout(() => alert('No winner'), 10);
+            return;
+        }
+
+        switchPlayer();
+    } else {
+        alert('No space here, try again')
     }
 }
 
@@ -60,14 +64,7 @@ function checkWin() {
 }
 
 function checkDraw() {
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            if (board[i][j] === '') {
-                return false;
-            }
-        }
-    }
-    return true;
+    return board.flat().every(cell => cell !== '');
 }
 
 function resetBoard() {
@@ -76,34 +73,12 @@ function resetBoard() {
         ['','','']
     ];
     currentPlayer = 'x';
+    displayBoard();
 }
 
-function gameLoop() {
-    for (let i = 0; i < 9; i++) {
-        playerMove();
+cells.forEach(cell => {
+    cell.addEventListener('click', cellClick);
+})
 
-        if (checkWin()) {
-            console.log(`Player ${currentPlayer} wins!`);
-            return;
-        }
-
-        if (checkDraw()) {
-            console.log(`No winner`);
-            return;
-        }
-        switchPlayer();
-    }
-
-    let playAgain = prompt('Rematch? (yes/no):').toLowerCase();
-
-    if (playAgain === 'yes') {
-        resetBoard();
-        displayBoard();
-    } else {
-        console.log('Thanks For PLaying');
-        break;
-    }
-}
-
+document.getElementById('restartButton').addEventListener('click', resetBoard);
 displayBoard();
-gameLoop();
