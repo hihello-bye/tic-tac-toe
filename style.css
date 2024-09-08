@@ -5,10 +5,12 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background-color: #172554;
 }
 
 h1 {
     margin-bottom: 20px;
+    color: #a8a29e;
 }
 
 #gameBoard {
@@ -21,7 +23,7 @@ h1 {
 .cell {
     width: 100px;
     height: 100px;
-    border: 2px solid black;
+    border: 2px double #fde047;
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -33,4 +35,7 @@ h1 {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1rem;
+    color: #fde047;
+    background-color: #a8a29e;
+    border: 2px double #fde047;
 }
