@@ -11,7 +11,21 @@ function displayBoard() {
     cells.forEach(cell => {
         const row = cell.getAttribute('data-row');
         const col = cell.getAttribute('data-col');
-        cell.textContent = board[row][col];
+        const cellValue = board[row][col];
+
+        cell.innerHTML = '';
+
+        if (cellValue === 'x') {
+            const img = document.createElement('img');
+            img.src = 'img/full-moon-308007_1280.png';
+            img.classList.add('playerImage');
+            cell.appendChild(img);
+        } else if (cellValue === 'o') {
+            const img = document.createElement('img');
+            img.src = 'img/star-158502_1280.png';
+            img.classList.add('playerImage');
+            cell.appendChild(img);
+         }
     })
 }
 

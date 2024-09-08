@@ -31,6 +31,12 @@ h1 {
     cursor: pointer;
 }
 
+.playerImage {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
 #restartButton {
     margin-top: 20px;
     padding: 10px 20px;
